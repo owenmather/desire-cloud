@@ -23,18 +23,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
-                   nodejs('nodeJenkins') {
-                    bat 'npm start'
-                }
             }
         }
-        stage('Cleanup'){
-
-         echo 'Cleaning....'
-         nodejs('nodeJenkins') {
-            bat 'npm prune'
-         }
-         bat 'rmdir node_modules -s -q'
-       }
     }
 }
