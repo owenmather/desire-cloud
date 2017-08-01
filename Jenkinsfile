@@ -1,13 +1,13 @@
 pipeline {
     agent any
-    tools {
-        nodejs 'nodeJenkins'
-    }
+    
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
-                npm install
+                nodejs('nodeJenkins') {
+                    npm install
+                }
             }
         }
         stage('Test') {
