@@ -1,26 +1,13 @@
-var http = require("https");
+var request = require("request");
 
-var options = {
-  "method": "GET",
-  "hostname": "stackoverflow.com",
-  "port": null,
-  "path": "/jobs?sort=i&l=Remote&d=20&u=Km",
-  "headers": {
-    "cache-control": "no-cache"
-  }
-};
+var options = { method: 'GET',
+  url: 'https://stackoverflow.com/jobs',
+  qs: { sort: 'i', l: 'Remote', d: '20', u: 'Km' },
+  headers: 
+   { } };
 
-var req = http.request(options, function (res) {
-  var chunks = [];
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
 
-  res.on("data", function (chunk) {
-    chunks.push(chunk);
-  });
-
-  res.on("end", function () {
-    var body = Buffer.concat(chunks);
-    console.log(body.toString());
-  });
+  console.log(body);
 });
-
-req.end();
