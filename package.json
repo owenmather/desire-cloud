@@ -1,0 +1,19 @@
+{
+  "name": "desire-cloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owenmather/desire-cloud.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/owenmather/desire-cloud/issues"
+  },
+  "homepage": "https://github.com/owenmather/desire-cloud#readme"
+}
