@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 nodejs('nodeJenkins') {
-                    npm install
+                    bat 'npm install'
                 }
             }
         }
