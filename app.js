@@ -6,7 +6,7 @@ var options = {
   "port": null,
   "path": "/jobs?sort=i&l=Remote&d=20&u=Km",
   "headers": {
-    "cache-control": "no-cache",
+    "cache-control": "no-cache"
   }
 };
 
