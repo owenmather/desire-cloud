@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/owenmather/desire-cloud/issues"
   },
-  "homepage": "https://github.com/owenmather/desire-cloud#readme"
+  "homepage": "https://github.com/owenmather/desire-cloud#readme",
+   "devDependencies": {
+    "request": "^2.81.0"
+  }
 }
