@@ -18,6 +18,9 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Running....'
+                nodejs('nodeJenkins') {
+                    bat 'npm start'
+                }
             }
         }
         stage('Deploy') {
