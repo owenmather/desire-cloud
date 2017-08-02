@@ -1,6 +1,7 @@
 
 (function () {
 	var request = require("request");
+	const cheerio = require('cheerio');
 	var myTestRequest=generateStackOverflowUrl("NOT YET INTEGRATED=SEARCH");
 	var body= dispatchRequest(myTestRequest,"stackoverflow");
 	
@@ -26,7 +27,13 @@
 	}//end dispatchRequest
 
 	function parseStackOverflowHtml(html) {
-	   console.log(html);
+		const $ = cheerio.load(html);
+		$("a").each(function(i, elem) {
+			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
+				console.log($(this).text());
+			}
+		});
+		
 	};//end ParserStackOverflowHtml
 
 
