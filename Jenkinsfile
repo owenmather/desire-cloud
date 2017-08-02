@@ -5,9 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                nodejs('nodeJenkins') {
-                    sh 'npm install'
-                }
+                sh 'npm install'
             }
         }
         stage('Test') {
@@ -18,9 +16,7 @@ pipeline {
         stage('Run') {
             steps {
                 echo 'Running....'
-                nodejs('nodeJenkins') {
-                    sh 'npm start'
-                }
+                sh 'npm start'
             }
         }
         stage('Deploy') {
