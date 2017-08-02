@@ -18,7 +18,7 @@
 		 'content-type': 'application/gzip',
 		 'accept-encoding': 'gzip,deflate,br',
 		 'host':'stackoverflow.com',
-		 'DNT':'1'};
+		 'DNT':'1'}  };
 		 
 	  return generatedRequest;
 	}//end generateStackOverflowUrl
