@@ -10,9 +10,11 @@
 	  url: 'https://stackoverflow.com/jobs/remote-developer-jobs',
 	  qs: { sort: 'i', pg: PAGENUMBER },
 	  headers: 
-	   { 'postman-token': '15718f0d-cb72-a151-6eb9-f0451ba1fa9c',
-		 'cache-control': 'no-cache',
-		 'content-type': 'application/gzip'} };
+	   { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36',
+		 'content-type': 'application/gzip',
+		 'accept-encoding': 'gzip,deflate,br',
+		 'host':'stackoverflow.com',
+		 'DNT':'1'};
 		 
 	  return generatedRequest;
 	}//end generateStackOverflowUrl
