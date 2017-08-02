@@ -10,7 +10,8 @@
 	  qs: { sort: 'i', pg: PAGENUMBER },
 	  headers: 
 	   { 'postman-token': '15718f0d-cb72-a151-6eb9-f0451ba1fa9c',
-		 'cache-control': 'no-cache' } };
+		 'cache-control': 'no-cache',
+		 'content-type': 'application/gzip'} };
 		 
 	  return generatedRequest;
 	}//end generateStackOverflowUrl
