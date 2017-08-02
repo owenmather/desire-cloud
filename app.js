@@ -28,7 +28,7 @@
 	function parseStackOverflowHtml(html) {
 		const cheerio = require('cheerio');
 		const $ = cheerio.load(html);
-		$(".post-tag,.no-tag-menu,.job-link").each(function(i, elem) {
+		$("a").each(function(i, elem) {
 			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
 				console.log($(this).text());
 			}
