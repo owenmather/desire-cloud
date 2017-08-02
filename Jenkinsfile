@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 nodejs('nodeJenkins') {
-                    bat 'npm install'
+                    sh 'npm install'
                 }
             }
         }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 echo 'Running....'
                 nodejs('nodeJenkins') {
-                    bat 'npm start'
+                    sh 'npm start'
                 }
             }
         }
