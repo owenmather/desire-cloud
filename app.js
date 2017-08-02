@@ -1,13 +1,32 @@
-var request = require("request");
 
-var options = { method: 'GET',
-  url: 'https://stackoverflow.com/jobs',
-  qs: { sort: 'i', l: 'Remote', d: '20', u: 'Km' },
-  headers: 
-   { } };
+(function () {
+	var request = require("request");
+	var myTestRequest=generateStackOverflowUrl("NOT YET INTEGRATED=SEARCH");
+	var body= dispatchRequest(myTestRequest,"stackoverflow");
+	
+	function generateStackOverflowUrl(SEARCHTERM, PAGENUMBER=1){
+	  var generatedRequest = { method: 'GET',
+	  url: 'https://stackoverflow.com/jobs/remote-developer-jobs',
+	  qs: { sort: 'i', pg: PAGENUMBER },
+	  headers: 
+	   { 'postman-token': '15718f0d-cb72-a151-6eb9-f0451ba1fa9c',
+		 'cache-control': 'no-cache' } };
+		 
+	  return generatedRequest;
+	}//end generateStackOverflowUrl
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+	function dispatchRequest(generatedRequest, website){
+		request(generatedRequest, function (error, response, htmlResponse) {
+			if (error) throw new Error(error);
+		  
+			if(website == "stackoverflow")
+				parseStackOverflowHtml(htmlResponse);
+		});
+	}//end dispatchRequest
 
-  console.log(body);
-});
+	function parseStackOverflowHtml(html) {
+	   console.log(html);
+	};//end ParserStackOverflowHtml
+
+
+})();//end of file
