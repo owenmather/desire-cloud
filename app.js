@@ -2,8 +2,12 @@
 (function () {
 	var request = require("request");
 	const cheerio = require('cheerio');
+	var myMap = new Map();
+		
 	var myTestRequest=generateStackOverflowUrl("NOT YET INTEGRATED=SEARCH");
 	var body= dispatchRequest(myTestRequest,"stackoverflow");
+	
+	console.log(myMap);
 	
 	function generateStackOverflowUrl(SEARCHTERM, PAGENUMBER=1){
 	  var generatedRequest = { method: 'GET',
@@ -32,11 +36,18 @@
 		const $ = cheerio.load(html);
 		$("a").each(function(i, elem) {
 			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
-				console.log($(this).text());
+				incrementMapCount($(this).text());
 			}
 		});
 		
 	};//end ParserStackOverflowHtml
 
-
+	function incrementMapCount(key){
+		if(myMap.get(key.toLowerCase())==undefined){
+			myMap.set(key.toLowerCase(),1);
+		}else{
+			myMap.set(key.toLowerCase(),myMap.get(key.toLowerCase())+1);
+		}
+	}
+	
 })();//end of file
