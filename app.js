@@ -2,6 +2,8 @@
 (function () {
 	var request = require("request");
 	const cheerio = require('cheerio');
+	
+	const mysql = require('mysql');
 	var myMap = new Map();
 		
 	var myTestRequest=generateStackOverflowUrl("NOT YET INTEGRATED=SEARCH");
@@ -18,8 +20,8 @@
 		 'content-type': 'application/gzip',
 		 'accept-encoding': 'gzip,deflate,br',
 		 'host':'stackoverflow.com',
-		 'DNT':'1'};
-		 
+		 'DNT':'1'}
+	   };
 	  return generatedRequest;
 	}//end generateStackOverflowUrl
 
@@ -32,15 +34,6 @@
 		});
 	}//end dispatchRequest
 
-	function parseStackOverflowHtml(html) {
-		const $ = cheerio.load(html);
-		$("a").each(function(i, elem) {
-			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
-				incrementMapCount($(this).text());
-			}
-		});
-	};
-
 	function incrementMapCount(key){
 		if(myMap.get(key.toLowerCase())==undefined){
 			myMap.set(key.toLowerCase(),1);
@@ -48,20 +41,19 @@
 			myMap.set(key.toLowerCase(),myMap.get(key.toLowerCase())+1);
 		}
 	}
-	
+		
 	function saveToMysql(){
-		var mysql = require('mysql');
 		var pool = mysql.createPool({
 		  host     : 'localhost',
 		  user     : 'David',
-		  password : 'password',
+		  password : 'Qazwsx09@',
 		  database : 'desirecloud'
 		});
 
 		pool.getConnection(function(err, connection) {
 		  // Use the connection
 			
-		  	map.forEach(function(value, key) {
+		  	myMap.forEach(function(value, key) {
 				var post = {language: key, count: value};
 				console.log(key + " : " + value);
 				var query = connection.query('INSERT INTO languagelisting SET ?', post, function (error, results, fields) {
@@ -78,4 +70,14 @@
 			});
 		});
 	}
+
+	function parseStackOverflowHtml(html) {
+		const $ = cheerio.load(html);
+		$("a").each(function(i, elem) {
+			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
+				incrementMapCount($(this).text());
+			}
+		});
+		saveToMysql();
+	};
 })();//end of file
