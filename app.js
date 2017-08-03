@@ -2,17 +2,23 @@
 (function () {
 	var request = require("request");
 	const cheerio = require('cheerio');
+	var myMap = new Map();
+		
 	var myTestRequest=generateStackOverflowUrl("NOT YET INTEGRATED=SEARCH");
 	var body= dispatchRequest(myTestRequest,"stackoverflow");
+	
+	console.log(myMap);
 	
 	function generateStackOverflowUrl(SEARCHTERM, PAGENUMBER=1){
 	  var generatedRequest = { method: 'GET',
 	  url: 'http://localhost/stack/test.html',
 	  qs: { sort: 'i', pg: PAGENUMBER },
 	  headers: 
-	   { 'postman-token': '15718f0d-cb72-a151-6eb9-f0451ba1fa9c',
-		 'cache-control': 'no-cache',
-		 'content-type': 'application/gzip'} };
+	   { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.94 Safari/537.36',
+		 'content-type': 'application/gzip',
+		 'accept-encoding': 'gzip,deflate,br',
+		 'host':'stackoverflow.com',
+		 'DNT':'1'};
 		 
 	  return generatedRequest;
 	}//end generateStackOverflowUrl
@@ -28,18 +34,22 @@
 
 	function parseStackOverflowHtml(html) {
 		const $ = cheerio.load(html);
-		const HashMap = require('hashmap');
-		var map = new HashMap();
 		$("a").each(function(i, elem) {
 			if($(this).attr("class") === "post-tag job-link no-tag-menu") {
-				if(map.get($(this).text())){
-				   map.set($(this).text(), map.get($(this).text()) + 1);
-				} else {
-				   map.set($(this).text(), 1);
-				}
+				incrementMapCount($(this).text());
 			}
 		});
-		
+	};
+
+	function incrementMapCount(key){
+		if(myMap.get(key.toLowerCase())==undefined){
+			myMap.set(key.toLowerCase(),1);
+		}else{
+			myMap.set(key.toLowerCase(),myMap.get(key.toLowerCase())+1);
+		}
+	}
+	
+	function saveToMysql(){
 		var mysql = require('mysql');
 		var pool = mysql.createPool({
 		  host     : 'localhost',
@@ -60,13 +70,12 @@
 				 	
 				});
 			});
+			
 			// And done with the connection.
 			connection.release();
 			pool.end(function (err) {
-  // all connections in the pool have ended
-});
+  				// all connections in the pool have ended
+			});
 		});
-	};//end ParserStackOverflowHtml
-
-
+	}
 })();//end of file
